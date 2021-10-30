@@ -7,10 +7,12 @@ pipeline {
                 sh 'mvn install -DskipTests'
             }
          }
-         stage('Deploy'){
+         stage('Deploye'){
              steps {
-                sh 'sudo systemctl start docker'
-                sh 'sudo docker-compose up -d'
+                sh 'docker build -t springbootq:$BUILD_NUMBER" .
+                sh 'docker run -d -p 8045:8080 --name springbootq --link mysqldbp:mysql springbootq:$BUILD_NUMBER
+                sh 'docker rmi springbootq:$BUILD_NUMBER'
+                sh 'docker rmi springboot1:latest'
              }
          }
      }
