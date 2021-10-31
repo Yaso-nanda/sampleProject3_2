@@ -10,7 +10,7 @@ pipeline {
          stage('Deploy'){
              steps {
                 sh 'docker build -t springbootq .'
-                sh 'docker run --rm -d -p 8046:8080 --name springbootr --link mysqldbq:mysql springbootq'
+                sh 'docker run --rm -d -p 8050:8080 --name springbootb --link mysqldbq:mysql springbootq'
              }
          }
      }
