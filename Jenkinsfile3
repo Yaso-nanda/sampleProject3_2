@@ -1,15 +1,12 @@
-pipeline {
-  agent {any}
-
-  stages {
-    stage('Hello') {
-      steps {
-        sh '''
-          ansible --version
-          ansible-playbook --version
-          ansible-galaxy --version
-        '''
-      }
-    }
-  }
-}
+---
+  - hosts: web-servers
+    become: true
+    tasks:
+     - name: run mysql container
+       shell: docker run --name mysqldbq -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=employee_management_system -e MYSQL_PASSWORD=root -d mysql:8 || true
+     - name: build spring boot image
+       shell: docker build -t springbootq .	  
+     - name: remove previous spring boot containers
+       shell: docker rm -f springboota || true
+     - name: create spring boot container
+       shell: docker run -d -p 8050:8080 --name springboota --link mysqldbq:mysql springbootq
