@@ -1,0 +1,26 @@
+pipeline {
+     agent any
+     
+     stages {
+         stage('SonarQube analysis & Mvn') {
+              steps{
+                   script{
+                      scannerHome=tool 'sonarqube'
+                   }
+                   withSonarQubeEnv('sonarqube'){
+                     sh "mvn clean install -DskipTests sonar:sonar \
+                    -Dsonar.projectKey=sonar-maven \
+                    -Dsonar.host.url=http://192.168.0.100:9000 \
+                    -Dsonar.login=d8410e40fdfaee69695191b9b9fe0340525301db \
+                    -Dsonar.sources=src/main/java/ \
+                    -Dsonar.java.binaries=target/classes"
+                   }
+              }
+           }
+         stage('Ansible Deploying'){
+             steps {
+                sh 'ansible-playbook -i playbook.yml'
+             }
+         }
+     }
+}
