@@ -2,12 +2,10 @@
   - hosts: localhost
     become: true
     tasks:
-     - name: spring boot app dir
-       shell: cd /home/ansadmin/ansible_test
      - name: run mysql container
        shell: docker run --name mysqldbq -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=employee_management_system -e MYSQL_PASSWORD=root -d mysql:8 || true
      - name: build spring boot image
-       shell: docker build -t springbootq .	  
+       shell: docker build -t springbootq ./ansible_test/	  
      - name: remove previous spring boot containers
        shell: docker rm -f springboota || true
      - name: create spring boot container
