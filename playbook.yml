@@ -2,8 +2,6 @@
   - hosts: localhost
     become: true
     tasks:
-     - name: spring boot app dir
-       shell: cd /var/lib/jenkins/workspace/ansible_test
      - name: run mysql container
        shell: docker run --name mysqldbq -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=employee_management_system -e MYSQL_PASSWORD=root -d mysql:8 || true
      - name: build spring boot image
