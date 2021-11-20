@@ -24,7 +24,7 @@ pipeline {
                 //sh 'ssh ansadmin@192.168.50.104'
                 //sh 'cd ansible_test'
                 //sh 'ansible-playbook -i hosts.yml playbook.yml'
-                sh 'ssh user@server /bin/bash <<'EOT'
+                sh 'ssh user@server /bin/bash <<"EOT"
                 echo "These commands will be run on: $( uname -a )"
                 echo "They are executed by: $( whoami )"
                 EOT'
