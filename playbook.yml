@@ -7,7 +7,7 @@
      - name: build spring boot image
        shell: docker build -t springbootq ./ansible_test/
        shell: docker tag springbootq 192.168.50.104:8082/springbootq
-       shell: docker push 192.168.50.104:8082/springbootq
+       shell: docker push 192.168.50.104:8082/springbootq:latest
      - name: remove previous spring boot containers
        shell: docker rm -f springboota || true
      - name: create spring boot container
